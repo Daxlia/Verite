@@ -1,7 +1,7 @@
 # Verite: Cross-Domain Deception Detection
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![DOI](https://img.shields.io/badge/DOI-[INSERT_DOI]-blue.svg)](https://doi.org/[INSERT_DOI])
+[![DOI](https://img.shields.io/badge/DOI-10.5281/zenodo.20256648-blue.svg)](https://doi.org/10.5281/zenodo.20256648)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![HuggingFace](https://img.shields.io/badge/Model-HuggingFace-orange.svg)](https://huggingface.co/[HF_USERNAME]/verite)
 
@@ -192,7 +192,7 @@ If you use Verite in your research, please cite:
   title     = {Verite: Cross-Domain Deception Detection with ModernBERT},
   year      = {2026},
   doi       = {[INSERT_DOI]},
-  url       = {https://doi.org/[INSERT_DOI]}
+  url       = {https://doi.org/10.5281/zenodo.20256648}
 }
 ```
 
