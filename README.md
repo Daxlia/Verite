@@ -4,6 +4,7 @@
 [![DOI](https://img.shields.io/badge/DOI-10.5281/zenodo.20256648-blue.svg)](https://doi.org/10.5281/zenodo.20256648)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![HuggingFace](https://img.shields.io/badge/Model-HuggingFace-orange.svg)](https://huggingface.co/Daxlia/verite)
+[![Kaggle](https://img.shields.io/badge/Trained%20on-Kaggle-20BEFF.svg)](https://www.kaggle.com)
 
 > **Verite!** is a cross-domain deception detection system built on [ModernBERT-base](https://huggingface.co/answerdotai/ModernBERT-base), combining spectral features, hyperspherical classification, local consistency modeling, and multi-task domain learning.  
 > Evaluated on the [DIFrauD](https://huggingface.co/datasets/difraud/difraud) benchmark (7 domains, ~103K samples).
@@ -165,7 +166,7 @@ Then: **Save Version → Run All**.
 
 ## Training
 
-Training was performed on 2×NVIDIA T4 (16GB each) via Kaggle.
+Training was performed on 2×NVIDIA T4 (16GB each) provided by [Kaggle](https://www.kaggle.com) free GPU hardware.
 
 | Hyperparameter | Value |
 | --- | --- |
