@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![DOI](https://img.shields.io/badge/DOI-10.5281/zenodo.20256648-blue.svg)](https://doi.org/10.5281/zenodo.20256648)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
-[![HuggingFace](https://img.shields.io/badge/Model-HuggingFace-orange.svg)](https://huggingface.co/[HF_USERNAME]/verite)
+[![HuggingFace](https://img.shields.io/badge/Model-HuggingFace-orange.svg)](https://huggingface.co/Daxlia/verite)
 
 > **Verite** is a cross-domain deception detection system built on [ModernBERT-base](https://huggingface.co/answerdotai/ModernBERT-base), combining spectral features, hyperspherical classification, local consistency modeling, and multi-task domain learning.  
 > Evaluated on the [DIFrauD](https://huggingface.co/datasets/difraud/difraud) benchmark (7 domains, ~103K samples).
@@ -191,7 +191,7 @@ If you use Verite in your research, please cite:
   author    = {Daxlia},
   title     = {Verite: Cross-Domain Deception Detection with ModernBERT},
   year      = {2026},
-  doi       = {[INSERT_DOI]},
+  doi       = {10.5281/zenodo.20256648},
   url       = {https://doi.org/10.5281/zenodo.20256648}
 }
 ```
