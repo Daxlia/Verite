@@ -1,11 +1,11 @@
-# Verite: Cross-Domain Deception Detection
+# Verite!: Cross-Domain Deception Detection
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![DOI](https://img.shields.io/badge/DOI-10.5281/zenodo.20256648-blue.svg)](https://doi.org/10.5281/zenodo.20256648)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![HuggingFace](https://img.shields.io/badge/Model-HuggingFace-orange.svg)](https://huggingface.co/Daxlia/verite)
 
-> **Verite** is a cross-domain deception detection system built on [ModernBERT-base](https://huggingface.co/answerdotai/ModernBERT-base), combining spectral features, hyperspherical classification, local consistency modeling, and multi-task domain learning.  
+> **Verite!** is a cross-domain deception detection system built on [ModernBERT-base](https://huggingface.co/answerdotai/ModernBERT-base), combining spectral features, hyperspherical classification, local consistency modeling, and multi-task domain learning.  
 > Evaluated on the [DIFrauD](https://huggingface.co/datasets/difraud/difraud) benchmark (7 domains, ~103K samples).
 
 ---
@@ -26,7 +26,7 @@
 
 ## Overview
 
-Deception detection is a challenging NLP task that requires generalizing across radically different domains (fake news, phishing, product reviews, SMS spam, political statements, job scams, Twitter rumours). Verite addresses this by combining a powerful pre-trained encoder with domain-aware multi-task learning and several auxiliary objectives designed to capture both semantic and structural deception signals.
+Deception detection is a challenging NLP task that requires generalizing across radically different domains (fake news, phishing, product reviews, SMS spam, political statements, job scams, Twitter rumours). Verite! addresses this by combining a powerful pre-trained encoder with domain-aware multi-task learning and several auxiliary objectives designed to capture both semantic and structural deception signals.
 
 **Key contributions:**
 
@@ -83,7 +83,7 @@ Evaluated on the DIFrauD test set (macro-F1, higher is better).
 | Majority class | 0.3792 | 0.5000 |
 | TF-IDF + LR | 0.8094 | 0.9079 |
 | ModernBERT-base (fine-tuned) | ~0.82 | — |
-| **Verite (ours)** | **0.8512** | **0.9487** |
+| **Verite! (ours)** | **0.8512** | **0.9487** |
 | SOTA (DIFrauD leaderboard) | 0.904 | — |
 
 > Results obtained with a single seed (seed=42) on 2×NVIDIA T4 GPUs.  
@@ -94,8 +94,8 @@ Evaluated on the DIFrauD test set (macro-F1, higher is better).
 ## Installation
 
 ```bash
-git clone https://github.com/[USERNAME]/verite.git
-cd verite
+git clone https://github.com/Daxlia/Verite.git
+cd Verite
 pip install torch>=2.1.0 transformers>=4.47.0 safetensors sentencepiece
 pip install scikit-learn pandas numpy tqdm datasets huggingface_hub
 ```
@@ -110,27 +110,32 @@ pip install scikit-learn pandas numpy tqdm datasets huggingface_hub
 
 ```python
 import torch
+from torch.utils.data import DataLoader
 from transformers import AutoTokenizer
 from safetensors.torch import load_file
 
-# Assuming VeriteTrainer.py is in your path
-from VeriteTrainer import DeceptionReasoningModel, Config
+from VeriteTrainer import DeceptionReasoningModel, Config, DeceptionDataset, collate_fn
 
-cfg = Config()
-tokenizer = AutoTokenizer.from_pretrained("answerdotai/ModernBERT-base")
+cfg       = Config()
+tokenizer = AutoTokenizer.from_pretrained("Daxlia/verite")
+
 model = DeceptionReasoningModel(cfg)
-state = load_file("model.safetensors")
-model.load_state_dict(state)
+model.load_state_dict(load_file("model.safetensors"))
 model.eval()
 
-text = "This is a suspicious message claiming you've won a prize."
-enc = tokenizer(text, return_tensors="pt", max_length=256,
-                truncation=True, padding="max_length")
+texts = ["This is a suspicious message claiming you've won a prize."]
+
+dataset = DeceptionDataset(texts, [0] * len(texts), tokenizer, cfg)
+loader  = DataLoader(dataset, batch_size=8, shuffle=False, collate_fn=collate_fn)
 
 with torch.no_grad():
-    out = model(input_ids=enc["input_ids"], attention_mask=enc["attention_mask"])
-    prob_deceptive = torch.softmax(out["logits"], dim=-1)[0, 1].item()
-    print(f"P(deceptive) = {prob_deceptive:.4f}")
+    for batch in loader:
+        out  = model(input_ids=batch["input_ids"],
+                     attention_mask=batch["attention_mask"],
+                     ling_feats=batch["ling_feats"])
+        prob = torch.softmax(out["logits"], dim=-1)[:, 1]
+        for t, p in zip(texts, prob.tolist()):
+            print(f"P(deceptive) = {p:.4f} | {t}")
 ```
 
 ### Training from scratch
@@ -184,12 +189,12 @@ Training was performed on 2×NVIDIA T4 (16GB each) via Kaggle.
 
 ## Citation
 
-If you use Verite in your research, please cite:
+If you use Verite! in your research, please cite:
 
 ```bibtex
-@misc{veritenet2026,
+@misc{verite2026,
   author    = {Daxlia},
-  title     = {Verite: Cross-Domain Deception Detection with ModernBERT},
+  title     = {Verite!: Cross-Domain Deception Detection with ModernBERT},
   year      = {2026},
   doi       = {10.5281/zenodo.20256648},
   url       = {https://doi.org/10.5281/zenodo.20256648}
